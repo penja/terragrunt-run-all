@@ -1,3 +1,11 @@
+variable "tags" {
+  type = map(string)
+  default = {
+    Environment = "Test"
+    Name        = "Provider Tag"
+  }
+}
+
 provider "aws" {
   default_tags {
     tags = merge(
