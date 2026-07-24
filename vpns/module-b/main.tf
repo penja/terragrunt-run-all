@@ -10,17 +10,6 @@ variable "tags" {
   }
 }
 
-provider "aws" {
-  default_tags {
-    tags = merge(
-      var.tags,
-      {
-        VpcParamArn = var.vpc_param_arn
-      }
-    )
-  }
-}
-
 resource "aws_ssm_parameter" "vpns-b" {
   name        = "/cloud-4527-repro/vpns-marker-b"
   type        = "String"
