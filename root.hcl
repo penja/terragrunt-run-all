@@ -8,6 +8,23 @@ terraform {
 EOF
 }
 
+
+generate "provider" {
+  path      = "provider.tf"
+  if_exists = "overwrite_terragrunt"
+  contents  = <<-EOF
+    provider "aws" {
+      default_tags {
+        tags = {
+          Environment = "Test"
+          Module      = "${basename(get_terragrunt_dir())}"
+          UnitPath    = "${path_relative_to_include()}"
+        }
+      }
+    }
+  EOF
+}
+
 remote_state {
   backend = "s3"
   config = {
