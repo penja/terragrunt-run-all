@@ -9,16 +9,29 @@ EOF
 }
 
 
+
 generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<-EOF
+    variable "owner" {
+      type        = string
+      description = "Team owning the unit"
+      default     = "platform-team"
+    }
+
+    locals {
+      cost_center = "cc-$${var.owner}-$${terraform.workspace}"
+    }
+
     provider "aws" {
       default_tags {
         tags = {
           Environment = "Test"
           Module      = "${basename(get_terragrunt_dir())}"
           UnitPath    = "${path_relative_to_include()}"
+          Owner       = var.owner
+          CostCenter  = local.cost_center
         }
       }
     }
