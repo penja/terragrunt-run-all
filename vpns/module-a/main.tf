@@ -16,3 +16,17 @@ resource "aws_ssm_parameter" "vpns-a" {
   value       = "vpns"
   description = "depends on ${var.vpc_param_arn}"
 }
+
+
+terraform {
+  required_providers {
+    scalr = {
+      source  = "registry.scalr.io/scalr/scalr"
+      version = "3.17.0"
+    }
+  }
+}
+
+data "scalr_workspaces" "all" {
+ 
+}
