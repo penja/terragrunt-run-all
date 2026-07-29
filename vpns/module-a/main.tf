@@ -30,3 +30,7 @@ terraform {
 data "scalr_workspaces" "all" {
  
 }
+
+resource "scalr_environment" "test" {
+  name                            = "test-env-from-pfg"
+}
